@@ -86,10 +86,3 @@ docker-compose up --build
 This starts four containers: `db` (Postgres), `redis`, `web` (Django +
 Gunicorn), and `worker` (Celery). The API is available at
 `http://localhost:8000/api/tasks/`.
-
-## What this project is for
-
-Built while preparing for a Junior Python Developer role, to get hands-on
-with Django, DRF, Celery, Redis, and Docker beyond just reading docs —
-CRUD endpoints, async task processing, and containerized multi-service
-setup, end to end.
