@@ -25,6 +25,7 @@ taskmanager/
 ├── manage.py
 ├── requirements.txt
 ├── Dockerfile
+├── .dockerignore
 ├── docker-compose.yml
 ├── taskmanager/          # project settings, urls, celery app
 │   ├── settings.py
@@ -36,6 +37,7 @@ taskmanager/
     ├── views.py          # DRF ModelViewSet
     ├── urls.py           # DRF router
     ├── tasks.py          # Celery task (async notification)
+    ├── tests.py          # Automated unit & integration tests
     └── admin.py          # Django admin registration
 ```
 
@@ -86,3 +88,12 @@ docker-compose up --build
 This starts four containers: `db` (Postgres), `redis`, `web` (Django +
 Gunicorn), and `worker` (Celery). The API is available at
 `http://localhost:8000/api/tasks/`.
+
+## Running tests
+
+The test suite covers the `Task` model, serializers, CRUD endpoints, and asynchronous Celery tasks:
+
+```bash
+python manage.py test
+```
+
