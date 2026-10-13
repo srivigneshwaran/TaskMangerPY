@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,12 +21,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_v1&!_&0plvyhv!sf@k))cq7)1&sb4myc)+rga2q8u6)(!dq_r'
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY", "django-insecure-_v1&!_&0plvyhv!sf@k))cq7)1&sb4myc)+rga2q8u6)(!dq_r"
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "True").lower() in ("true", "1")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = (
+    os.environ.get("ALLOWED_HOSTS").split(",")
+    if os.environ.get("ALLOWED_HOSTS")
+    else ["localhost", "127.0.0.1", "0.0.0.0"]
+)
 
 
 # Application definition
@@ -73,8 +80,6 @@ WSGI_APPLICATION = 'taskmanager.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
-
-import os
 
 if os.environ.get("POSTGRES_DB"):
     # Used when running via docker-compose (see docker-compose.yml).
